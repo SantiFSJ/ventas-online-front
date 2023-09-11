@@ -1,1 +1,62 @@
-<p>dialog-carrito works!</p>
+
+<div style="width: 1000px;height: 500px;">
+   
+
+   <mat-stepper #stepper>
+    <mat-step errorMessage="Name is required.">
+      
+        <ng-template matStepLabel>Tu carrito</ng-template>
+        
+
+        <div class="left-box">
+          <div style="overflow: hidden!important;">
+            <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+              <div class="example-box" *ngFor="let movie of movies" cdkDrag>
+                <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
+                {{movie}}
+              </div>
+            </div>
+          </div>
+         </div>
+         <div class="right-box">
+            <div class="promotions-box">
+              <div class="promotions-list-title">Promociones activas</div>
+              <div class="promotions-list-box">
+                <div class="no-promotions-message">
+                  En este momento no hay promociones activas :( 
+                </div>
+              </div>
+            </div>
+            <div class="total-amount-box">
+              <div class="total-amount-box-number">
+                <div style="float:left;width:50%">
+                Total 
+                </div>
+                <div style="float:right;width:50%">$5000
+                </div>
+              </div>
+              <div class="total-amount-box-aclaration">
+                *Este monto es sin descuentos aplicados
+              </div>
+              <div>
+                <div style="width:100%">
+                  <button (click)="stepper.next()" class="buy-buttom" mat-raised-button color="primary">Realizar compra</button>
+                </div>
+              </div>
+            </div>
+         </div>
+        
+      
+    </mat-step>
+    <mat-step  errorMessage="Address is required.">
+      <ng-template matStepLabel>Comprar carrito</ng-template>
+        
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button (click)="stepper.reset()">Reset</button>
+      </div>
+    </mat-step>
+  
+  </mat-stepper>
+
+</div>

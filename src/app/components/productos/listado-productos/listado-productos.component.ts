@@ -1,6 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { SelectionModel} from '@angular/cdk/collections';
+import { Component, ViewChild , OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import { SelectionModel} from '@angular/cdk/collections';
+import { ProductoService } from 'src/app/services/producto.service';
+import { Producto } from 'src/app/models/producto';
+import { GenericMessageService } from 'src/app/services/generic-message.service';
+import { Message } from 'src/app/models/message';
+import { MatProgressBar } from '@angular/material/progress-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogCarritoComponent } from '../../carrito/dialog-carrito/dialog-carrito.component';
+
+
 
 export interface PeriodicElement {
   name: string;
@@ -29,39 +38,73 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class ListadoProductosComponent implements OnInit {
 
-  displayedColumns: string[] = ['select', 'position', 'name', 'weight', 'symbol'];
+  @ViewChild(MatProgressBar) progressBar: MatProgressBar;
+
+  displayedColumns: string[] = ['select','position', 'name'];
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
   selection = new SelectionModel<PeriodicElement>(true, []);
 
-  constructor() { }
+  productos: Producto[] = [];
+  showNoProductsMessage: boolean = false;
+
+  productosSeleccionados: Producto[] = [];
+
+  constructor(
+    private productoService: ProductoService,
+    private genericMessageService: GenericMessageService,
+    private dialog: MatDialog) { }
 
   ngOnInit(): void {
+    this.productoService.getProductos().subscribe(
+      (res) => {
+        this.productos = res;
+        this.productos.length > 0 ? this.showNoProductsMessage = false : this.showNoProductsMessage = true;
+        this.progressBar.mode = "determinate";
+      },
+      (error) => {
+        this.genericMessageService.messageEvent.next(new Message('error','Mensaje informativo','Sucedió un error al recuperar los productos'));
+        this.progressBar.mode = "determinate";
+      }
+    );
+   
   }
 
-/** Whether the number of selected elements matches the total number of rows. */
-isAllSelected() {
-  const numSelected = this.selection.selected.length;
-  const numRows = this.dataSource.data.length;
-  return numSelected === numRows;
-}
-
-/** Selects all rows if they are not all selected; otherwise clear selection. */
-toggleAllRows() {
-  if (this.isAllSelected()) {
-    this.selection.clear();
-    return;
+  /** Whether the number of selected elements matches the total number of rows. */
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
   }
 
-  this.selection.select(...this.dataSource.data);
-}
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  toggleAllRows() {
+    if (this.isAllSelected()) {
+      this.selection.clear();
+      return;
+    }
 
-/** The label for the checkbox on the passed row */
-checkboxLabel(row?: PeriodicElement): string {
-  if (!row) {
-    return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
+    this.selection.select(...this.dataSource.data);
   }
-  return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
-}
+
+  /** The label for the checkbox on the passed row */
+  checkboxLabel(row?: PeriodicElement): string {
+    if (!row) {
+      return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
+    }
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
+  }
+
+  openShoppingCartDialog(): void{
+    this.dialog.open(DialogCarritoComponent);
+  }
+
+  showProductsBadge(): boolean{
+    return this.productosSeleccionados.length > 0;
+  }
+
+  getProductsSize(): number{
+    return this.productosSeleccionados.length;
+  }
 
 
 }

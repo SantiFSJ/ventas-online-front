@@ -1,0 +1,44 @@
+
+.header-container{
+    width: 100%;
+    height: 80px;
+    background-color: #3c3a3d;
+    z-index: 999;
+}
+
+.app-title-box{
+    padding-top: 20px;
+    padding-left: 15px;
+    font-size: xx-large;
+    color: white;
+    font-weight: bold;
+    font-style: italic;
+    font-family: Arial, Helvetica, sans-serif;
+    transition: color 0.5s;
+}
+
+.mat-icon{
+    transform: scale(1.3);
+}
+
+.app-title-box:hover{
+    cursor: pointer;
+    color: #69F0AE;
+}
+
+::ng-deep .p-toast-message{
+    background-color: #504e52!important;
+}
+
+::ng-deep .p-toast-message-content{
+    color: #69F0AE!important;
+}
+
+::ng-deep .p-toast-icon-close{
+    color: #69F0AE!important;
+}
+
+.toast{
+    position: absolute;
+    z-index: 9999;
+}
