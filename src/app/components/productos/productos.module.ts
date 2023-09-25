@@ -12,6 +12,12 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { DialogCarritoComponent } from "../carrito/dialog-carrito/dialog-carrito.component";
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatStepperModule } from '@angular/material/stepper';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
     declarations: [
@@ -19,6 +25,12 @@ import { MatStepperModule } from '@angular/material/stepper';
       DialogCarritoComponent,
     ],
     imports: [
+      ReactiveFormsModule,
+      MatExpansionModule,
+      MatRadioModule,
+      MatSelectModule,
+      MatInputModule,
+      MatFormFieldModule,
       MatStepperModule,
       DragDropModule,
       MatBadgeModule,

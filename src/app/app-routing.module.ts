@@ -6,6 +6,11 @@ const routes: Routes = [{
   path: '', component: VentasOnlineComponent,
   children:[
     {
+      path: '',
+      redirectTo: 'productos',
+      pathMatch: 'full', 
+    },
+    {
       path: 'productos',
       loadChildren: () => import('./components/productos/productos.module').then((m) => m.ProductosModule),
     },]}

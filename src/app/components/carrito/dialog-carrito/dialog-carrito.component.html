@@ -11,18 +11,28 @@
         <div class="left-box">
           <div style="overflow: hidden!important;">
             <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
-              <div class="example-box" *ngFor="let movie of movies" cdkDrag>
+              <div class="payment-method-box" >
+                Tus productos seleccionados<mat-icon>shopping_basket</mat-icon>
+              </div>
+              <div class="example-box" *ngFor="let producto of productos" cdkDrag>
                 <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
-                {{movie}}
+                {{producto.descripcion}}
+                <div style="float:right">
+                  ${{producto.precio}}
+                </div>
               </div>
             </div>
           </div>
          </div>
          <div class="right-box">
             <div class="promotions-box">
-              <div class="promotions-list-title">Promociones activas</div>
+              <div class="promotions-list-title">Promociones activas <mat-icon>card_giftcard</mat-icon></div>
               <div class="promotions-list-box">
-                <div class="no-promotions-message">
+                <div class="discount-row" *ngFor="let descuento of descuentos">
+                  <p *ngIf="descuento.tipo === 'Tarjeta' "><span style="font-weight: bold;">{{descuento.porcentaje}}%</span> para pagos con tarjetas <span style="font-weight: bold;">{{descuento.marca}}</span></p>
+                  <p *ngIf="descuento.tipo === 'Marca' "><span style="font-weight: bold;">{{descuento.porcentaje}}%</span> para productos de marca <span style="font-weight: bold;">{{descuento.marca}}</span></p>
+                </div>
+                <div *ngIf="descuentos.length === 0" class="no-promotions-message">
                   En este momento no hay promociones activas :( 
                 </div>
               </div>
@@ -32,7 +42,7 @@
                 <div style="float:left;width:50%">
                 Total 
                 </div>
-                <div style="float:right;width:50%">$5000
+                <div style="float:right;width:50%">${{getTotalAmount()}}
                 </div>
               </div>
               <div class="total-amount-box-aclaration">
@@ -40,7 +50,7 @@
               </div>
               <div>
                 <div style="width:100%">
-                  <button (click)="stepper.next()" class="buy-buttom" mat-raised-button color="primary">Realizar compra</button>
+                  <button (click)="stepper.next()" class="buy-buttom" mat-raised-button color="primary">Seleccionar medio de pago<mat-icon>keyboard_arrow_right</mat-icon></button>
                 </div>
               </div>
             </div>
@@ -48,13 +58,86 @@
         
       
     </mat-step>
-    <mat-step  errorMessage="Address is required.">
-      <ng-template matStepLabel>Comprar carrito</ng-template>
-        
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button (click)="stepper.reset()">Reset</button>
+    <mat-step  >
+      <ng-template matStepLabel>Realizar compra</ng-template>
+      
+      <form [formGroup]="ventaForm">
+      <div class="left-box">
+        <div style="overflow: hidden!important;">
+          
+            <mat-radio-group
+              aria-labelledby="example-radio-group-label"
+              class="example-radio-group" 
+              formControlname="idTarjeta">
+            <div cdkDropList class="payment-method-list" >
+              <div class="payment-method-box" >
+                Selecciona uno de tus métodos de pago<mat-icon>credit_card</mat-icon>
+              </div>
+              <div class="payment-method-box" *ngFor="let tarjeta of tarjetasDeCredito" >
+                {{tarjeta.nombre}}
+                - terminada en: 
+                {{formatNumber(tarjeta.numero)}}
+                <mat-radio-button class="example-radio-button" (click)="addSelectedTarjeta(tarjeta)" [value]="tarjeta">
+                  
+                </mat-radio-button>
+              </div>
+            </div>
+            </mat-radio-group>
+          
+        </div>
       </div>
+      <div class="right-box">
+        <div style="width:90%;margin:auto; height: 370px;">
+          <div class="sale-resume">
+            <mat-expansion-panel  class="mat-elevation-z0" >
+              <mat-expansion-panel-header>
+                <mat-panel-title style="font-weight: bold;">
+                  Resumen de compra
+                </mat-panel-title>
+                <mat-panel-description>
+                  Productos ({{getProductsCount()}})
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div style="max-height: 220px;overflow-y: auto;">
+                <table matSort >
+                  <tr>
+                    <th mat-sort-header="description">Descripción</th>
+                    <th mat-sort-header="unit-cost"> Precio(c/u)</th>
+                    <th mat-sort-header="total">Total</th>
+                  </tr>
+                
+                  <tr *ngFor="let item of getFilteredProducts()">
+                    <td>{{item.descripcion}}</td>
+                    <td>${{item.precio}}</td>
+                    <td>${{item.precio * getProductCount(item)}}(x{{getProductCount(item)}})</td>
+                  </tr>
+                </table>
+              </div>
+            </mat-expansion-panel>
+          </div>
+            <div class="total-amount-box-number" style="margin-top:10px;padding-top:10px; border-top: solid 1px #69F0AE;">
+                <div style="float:left;width:50%">
+                Total 
+                </div>
+                <div *ngIf="totalAmountWithDiscounts != ''" class="total-amount-discounted">${{totalAmountWithDiscounts}}
+                </div>
+            </div>
+            <div  style="margin:auto;width:90%;text-align: center; padding-top:10px; border-top: solid 1px #69F0AE;font-family: Arial, Helvetica, sans-serif;
+            font-size: small;">
+              *Este monto incluye los descuentos
+          </div>
+        
+        </div>
+        <div style="width:90%;margin:auto;padding-top: 35px;">
+          <div style="width:100%">
+            <mat-progress-bar #progressBar class="progress-bar" style="border-radius: 15px;" *ngIf=(showProgressBar) color="accent" mode="indeterminate" value="100"></mat-progress-bar>
+            <button (click)="realizarCompra()" class="buy-buttom" mat-raised-button color="primary">Realizar compra</button>
+          </div>
+        </div>
+      </div>
+    </form>
+    
+
     </mat-step>
   
   </mat-stepper>

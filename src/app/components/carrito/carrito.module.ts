@@ -10,20 +10,20 @@ import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatBadgeModule } from '@angular/material/badge';
+import { MatStepperModule } from '@angular/material/stepper';
 
 @NgModule({
     declarations: [
       
     ],
     imports: [
+      DragDropModule,
+      MatStepperModule,
       MatCheckboxModule,
       MatTableModule,
       MatButtonModule,
       MatIconModule,
       MatBadgeModule,
-      BrowserModule,
-      CommonModule,
-      DragDropModule,
       MatDialogModule,
       ToastModule,
     ],    

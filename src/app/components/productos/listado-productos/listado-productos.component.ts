@@ -1,6 +1,4 @@
 import { Component, ViewChild , OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
-import { SelectionModel} from '@angular/cdk/collections';
 import { ProductoService } from 'src/app/services/producto.service';
 import { Producto } from 'src/app/models/producto';
 import { GenericMessageService } from 'src/app/services/generic-message.service';
@@ -8,28 +6,6 @@ import { Message } from 'src/app/models/message';
 import { MatProgressBar } from '@angular/material/progress-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogCarritoComponent } from '../../carrito/dialog-carrito/dialog-carrito.component';
-
-
-
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-];
 
 @Component({
   selector: 'app-listado-productos',
@@ -40,9 +16,7 @@ export class ListadoProductosComponent implements OnInit {
 
   @ViewChild(MatProgressBar) progressBar: MatProgressBar;
 
-  displayedColumns: string[] = ['select','position', 'name'];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
-  selection = new SelectionModel<PeriodicElement>(true, []);
+  displayedColumns: string[] = ['select','precio','descripcion','marca','categoria','actions'];
 
   productos: Producto[] = [];
   showNoProductsMessage: boolean = false;
@@ -56,46 +30,55 @@ export class ListadoProductosComponent implements OnInit {
 
   ngOnInit(): void {
     this.productoService.getProductos().subscribe(
-      (res) => {
+      (res: Producto[]) => {
         this.productos = res;
-        this.productos.length > 0 ? this.showNoProductsMessage = false : this.showNoProductsMessage = true;
+        this.showNoProductsMessage = this.productos.length === 0;
         this.progressBar.mode = "determinate";
       },
-      (error) => {
-        this.genericMessageService.messageEvent.next(new Message('error','Mensaje informativo','Sucedió un error al recuperar los productos'));
-        this.progressBar.mode = "determinate";
+      (error: any) => {
+          this.genericMessageService.messageEvent.next(new Message('error', 'Mensaje informativo', 'Sucedió un error al recuperar los productos'));
+          this.progressBar.mode = "determinate";
       }
     );
    
   }
 
-  /** Whether the number of selected elements matches the total number of rows. */
-  isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
-    return numSelected === numRows;
+
+  public addToShoppingKart(producto: Producto): void{
+    this.productosSeleccionados.push(producto);
   }
 
-  /** Selects all rows if they are not all selected; otherwise clear selection. */
-  toggleAllRows() {
-    if (this.isAllSelected()) {
-      this.selection.clear();
-      return;
-    }
-
-    this.selection.select(...this.dataSource.data);
+  public removeFromShoppingKart(producto: Producto): void{
+    this.productosSeleccionados = this.productosSeleccionados.filter(productoTemp => productoTemp !== producto);
   }
 
-  /** The label for the checkbox on the passed row */
-  checkboxLabel(row?: PeriodicElement): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
-    }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
+  public showDeleteButton(producto:Producto): boolean{
+    return this.productosSeleccionados.includes(producto);
   }
+
+  public enableShoppingKartButton(): boolean{
+    return this.productosSeleccionados.length < 1;
+  }
+
+  public getProductCount(producto: Producto): number{
+    let counter = 0;
+    this.productosSeleccionados.forEach(productoTemp => {
+      if(productoTemp == producto){
+        counter++;
+      }
+    })
+    return counter;
+  }
+  
 
   openShoppingCartDialog(): void{
-    this.dialog.open(DialogCarritoComponent);
+    let productos = this.productosSeleccionados
+    this.dialog.open(DialogCarritoComponent,{
+        data: {
+          productos,
+        },
+      }
+    );
   }
 
   showProductsBadge(): boolean{

@@ -4,19 +4,20 @@ import { Observable } from 'rxjs';
 import { Producto } from '../models/producto';
 
 import {
-  productoUrl,
+    descuentoUrl,
 } from '../config/api';
+import { Descuento } from '../models/descuento';
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProductoService {  
-
+export class DescuentoService {  
+  
   constructor(private http: HttpClient){}
 
-  getProductos(): Observable<Producto[]>{
-    return this.http.get<Producto[]>(productoUrl + "/listar");
+  getDescuentos(): Observable<Descuento[]>{
+    return this.http.get<Descuento[]>(descuentoUrl + "/listar");
   }
 
 }

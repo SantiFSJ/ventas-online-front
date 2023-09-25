@@ -5,11 +5,29 @@ table {
 
 .table-header-buttons{
     background-color: #3c3a3d;
-    min-height: 50px;
+    min-height: 47px;
     padding: 0.3rem;
 
 }
 
+::ng-deep .mat-badge-content{
+    font-weight: bold!important;
+    animation: fadeIn 0.5s!important;
+
+}
+
+td{
+    font-weight: bold;
+}
+
+th{
+    font-weight: bold!important;
+}
+
+.delete-button{
+    margin-left: 10px;
+    animation: fadeIn 0.5s!important;
+}
 
 .empty-table-message{
     width: 100%;
@@ -26,7 +44,7 @@ table {
 
 
 .empty-table-message-text{
-    animation: fadeIn 3.5s!important;
+    animation: fadeIn 1.5s!important;
     text-shadow: #69F0AE 1px 0 50px;
 }
 

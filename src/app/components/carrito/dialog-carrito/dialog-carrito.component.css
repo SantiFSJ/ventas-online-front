@@ -7,11 +7,57 @@
     min-height: auto;
     max-height: 450px;
     display: block;
-    background: white;
-    border-radius: 10px;
+    background: #3c3a3d;
+    border-radius: 5px;
     overflow: hidden;
     overflow-y: auto;
   }
+
+.payment-method-list{
+  box-shadow: 0px 0px 32px -10px #7b1fa2;
+  margin: auto;
+  width: 550px;
+  max-width: 100%;
+  border: solid 1px #7b1fa2;
+  min-height: auto;
+  max-height: 450px;
+  display: block;
+  background: #3c3a3d;
+  border-radius: 5px;
+  overflow: hidden;
+  overflow-y: auto;
+}
+
+  /* width */
+::-webkit-scrollbar {
+  width: 5px;
+  background-color: #3c3a3d;
+  box-shadow: inset 0 0 4px #69F0AE;
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
+}
+
+::ng-deep .mat-step-text-label{
+  font-weight: bold;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background-color: #7b1fa2; 
+  border-radius: 10px;
+  -webkit-transition: background-color 2s ease-out;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #69F0AE; 
+}
 
   ng-template{
     font-weight: bold;
@@ -53,7 +99,7 @@
 
   .promotions-box{
     box-shadow: 0px 0px 32px -10px #7b1fa2;
-    border-radius: 10px;
+    border-radius: 5px;
     width: 90%;
     margin: auto;
     border: solid 1px #7b1fa2;
@@ -72,14 +118,17 @@
   }
 
   .promotions-list-title{
-    margin-top: 10px;
+    margin: auto;
     text-align: center;
     font-size: larger;
     font-family: Arial, Helvetica, sans-serif;
+    padding: 5px;
+    width: 95%;
+    border-bottom: #7b1fa2 1px solid;
   }
   .promotions-list-box{
     margin-top: 10px;
-    min-height: 250px;
+    min-height: 245px;
   }
 
   .total-amount-box-aclaration{
@@ -90,6 +139,12 @@
     font-family: Arial, Helvetica, sans-serif;
     font-size: small;
 
+  }
+
+  .sale-resume{
+    box-shadow: 0px 0px 32px -10px #7b1fa2;
+    border-radius: 5px;
+    border: solid 1px #7b1fa2;
   }
   
   .example-box {
@@ -107,7 +162,25 @@
     color: white;
     font-family: Arial, Helvetica, sans-serif;
     font-size: larger;
-    transition: border 1s , color 1s;
+    transition: border 1s ease-in , color 1s;
+  }
+
+  .payment-method-box {
+    padding: 15px 10px;
+    border-bottom: solid 1px #7b1fa2;
+    color: rgba(0, 0, 0, 0.87);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+  
+    background: #3c3a3d;
+    font-size: 14px;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: larger;
+    transition: border 1s ease-in , color 1s;
   }
 
   .left-box{
@@ -130,6 +203,7 @@
   
   
   .cdk-drag-preview {
+    color: #69F0AE;
     box-sizing: border-box;
     border-radius: 4px;
     box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
@@ -139,6 +213,16 @@
   
   .cdk-drag-animating {
     transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  }
+
+
+  .progress-bar{
+    animation: fadeIn 1.0s!important;
+  }
+
+  @keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
   }
   
   .example-box:last-child {
@@ -150,8 +234,24 @@
   }
   
   .example-custom-placeholder {
-    background: #ccc;
-    border: dotted 3px #999;
+    background: #3c3a3d;
+    border: dashed 1px #69F0AE;
     min-height: 60px;
     transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  }
+
+  .discount-row{
+    border-bottom: #7b1fa2 1px solid;
+    margin: auto;
+    width: 90%;
+    text-align: center;
+  }
+
+  .total-amount-discounted{
+    float:right;
+    width:50%;
+    animation: fadeIn 0.4s!important;
+  }
+  th{
+    text-align: left;
   }
