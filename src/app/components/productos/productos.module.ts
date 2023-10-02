@@ -18,11 +18,13 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { ReactiveFormsModule } from "@angular/forms";
+import { FormProductoComponent } from './form-producto/form-producto.component';
 
 @NgModule({
     declarations: [
       ListadoProductosComponent,
       DialogCarritoComponent,
+      FormProductoComponent,
     ],
     imports: [
       ReactiveFormsModule,

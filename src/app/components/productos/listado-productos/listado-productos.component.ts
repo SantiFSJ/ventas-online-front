@@ -6,6 +6,7 @@ import { Message } from 'src/app/models/message';
 import { MatProgressBar } from '@angular/material/progress-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogCarritoComponent } from '../../carrito/dialog-carrito/dialog-carrito.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-listado-productos',
@@ -24,6 +25,7 @@ export class ListadoProductosComponent implements OnInit {
   productosSeleccionados: Producto[] = [];
 
   constructor(
+    private router: Router,
     private productoService: ProductoService,
     private genericMessageService: GenericMessageService,
     private dialog: MatDialog) { }
@@ -41,6 +43,11 @@ export class ListadoProductosComponent implements OnInit {
       }
     );
    
+  }
+
+  public redirectToForm(producto: Producto): void{
+    this.router.navigate(['productos/editar/',producto.id]).then();
+
   }
 
 

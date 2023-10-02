@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { Message } from 'src/app/models/message';
 import { GenericMessageService } from 'src/app/services/generic-message.service';
@@ -12,6 +13,7 @@ import { GenericMessageService } from 'src/app/services/generic-message.service'
 export class HeaderComponent implements OnInit {
 
   constructor(
+    private router: Router,
     private genericMessageService: GenericMessageService,
     private messageService: MessageService) { }
 
@@ -20,6 +22,10 @@ export class HeaderComponent implements OnInit {
       if (message)
         this.showMessaggeToast(message);
     });
+  }
+
+  redirectToHome():void{
+    this.router.navigate(['productos']).then();
   }
 
   private showMessaggeToast(message: Message): void{

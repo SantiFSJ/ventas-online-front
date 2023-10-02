@@ -19,4 +19,8 @@ export class ProductoService {
     return this.http.get<Producto[]>(productoUrl + "/listar");
   }
 
+  findById(id: string): Observable<Producto>{
+    return this.http.get<Producto>(productoUrl + "/listar/" + id);
+  }
+
 }

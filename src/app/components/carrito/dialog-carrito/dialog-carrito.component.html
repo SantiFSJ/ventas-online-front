@@ -104,8 +104,7 @@
                     <th mat-sort-header="description">Descripción</th>
                     <th mat-sort-header="unit-cost"> Precio(c/u)</th>
                     <th mat-sort-header="total">Total</th>
-                  </tr>
-                
+                  </tr>`    
                   <tr *ngFor="let item of getFilteredProducts()">
                     <td>{{item.descripcion}}</td>
                     <td>${{item.precio}}</td>

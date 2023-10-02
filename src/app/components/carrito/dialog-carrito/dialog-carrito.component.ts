@@ -91,7 +91,7 @@ export class DialogCarritoComponent implements OnInit {
 
     this.productos.forEach(productoTemp =>{
       if (!productosFiltrados.includes(productoTemp)) {
-        productosFiltrados.push(productoTemp); // Agregamos el elemento al conjunto si no existe.
+        productosFiltrados.push(productoTemp); 
       }
     })
 
