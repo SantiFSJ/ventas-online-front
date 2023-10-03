@@ -1,1 +1,53 @@
-<p>form-producto works!</p>
+<div class="container">
+    <div style="background-color: #3c3a3d;">
+        <mat-progress-bar #progressBar color=primary mode=determinate [value]="100"></mat-progress-bar>
+        <div class="form-box">
+            <div class="form-title-row">Formulario de edición de un producto
+                <div style="float:right">#{{producto?.id}}</div>
+            </div>
+            <form class="form" [formGroup]="productForm">
+                <div class="form-row">
+                    <div class="left-box">
+                        <mat-form-field color="accent" appearance="outline">
+                            <mat-label>Nombre</mat-label>
+                            <input matInput placeholder="Un nombre..."  formControlName="nombre">
+                        </mat-form-field>
+                    </div>
+                    <div class="right-box">
+                        <mat-form-field color="accent" appearance="outline">
+                            <mat-label>Precio</mat-label>
+                            <input matInput type="number" class="example-right-align"placeholder="0.00"  formControlName="precio">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="left-box">
+                        <mat-form-field color="accent" appearance="outline">
+                            <mat-label>Marca</mat-label>
+                            <input matInput placeholder="Una marca.."  formControlName="marca">
+                        </mat-form-field>
+                    </div>
+                    <div class="right-box">
+                        <mat-form-field color="accent" appearance="outline">
+                            <mat-label>Categoria</mat-label>
+                            <mat-select formControlName="idCategoria">
+                                <mat-option *ngFor="let categoria of categorias" [value]="categoria.id">
+                                {{categoria.nombre}}
+                                </mat-option>
+                            </mat-select>                    
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="buttons-box">
+                        <button title="Guardar" mat-raised-button color="primary" (click)="saveProduct()"><mat-icon>save</mat-icon></button>
+                        <button title="Descartar cambios" mat-raised-button color="accent" (click)="redirectToList()"><mat-icon>settings_backup_restore</mat-icon></button>
+
+                    </div>
+                
+                </div>
+            </form>
+        </div>
+        <mat-progress-bar #progressBarBottom color=primary mode=determinate [value]="100"></mat-progress-bar>
+    </div>
+</div>

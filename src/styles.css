@@ -12,7 +12,8 @@ body{
 }
 
 .container{
-    margin: 10px;
+    max-width: 98%;
+    margin: auto;
     margin-top: 0px;
 }
 
