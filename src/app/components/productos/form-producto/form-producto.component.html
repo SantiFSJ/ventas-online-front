@@ -24,7 +24,11 @@
                     <div class="left-box">
                         <mat-form-field color="accent" appearance="outline">
                             <mat-label>Marca</mat-label>
-                            <input matInput placeholder="Una marca.."  formControlName="marca">
+                            <mat-select formControlName="idMarca">
+                                <mat-option *ngFor="let marca of marcas" [value]="marca.id">
+                                {{marca.nombre}}
+                                </mat-option>
+                            </mat-select>                    
                         </mat-form-field>
                     </div>
                     <div class="right-box">

@@ -9,3 +9,5 @@ export const descuentoUrl = environment.baseUrl + 'descuentos';
 export const productoUrl = environment.baseUrl + 'productos';
 
 export const categoriaUrl = environment.baseUrl + 'categorias';
+
+export const marcaUrl = environment.baseUrl + 'marcas';

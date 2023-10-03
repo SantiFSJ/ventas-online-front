@@ -19,6 +19,10 @@ export class ProductoService {
     return this.http.get<Producto[]>(productoUrl + "/listar");
   }
 
+  update(producto: Producto): Observable<Producto>{
+    return this.http.put<Producto>(productoUrl + "/actualizar",producto);
+  }
+
   findById(id: string): Observable<Producto>{
     return this.http.get<Producto>(productoUrl + "/listar/" + id);
   }
