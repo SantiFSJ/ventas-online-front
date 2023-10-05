@@ -45,6 +45,19 @@ export class ListadoProductosComponent implements OnInit {
    
   }
 
+  public reload(){
+    this.productoService.getProductos().subscribe(
+      (res: Producto[]) => {
+        this.productos = res;
+        this.showNoProductsMessage = this.productos.length === 0;
+        this.progressBar.mode = "determinate";
+      },
+      (error: any) => {
+          this.genericMessageService.messageEvent.next(new Message('error', 'Mensaje informativo', 'Sucedió un error al recuperar los productos'));
+          this.progressBar.mode = "determinate";
+      }
+    );  }
+
   public redirectToForm(producto: Producto): void{
     this.router.navigate(['productos/editar/',producto.id]).then();
 

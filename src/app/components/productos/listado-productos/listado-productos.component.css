@@ -54,5 +54,6 @@ th{
   }
   
 .header-button{
+    font-weight: bold;
     float: right;
 }

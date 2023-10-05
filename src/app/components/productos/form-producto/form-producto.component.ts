@@ -77,6 +77,14 @@ export class FormProductoComponent implements OnInit {
 
   }
 
+  changeCategoria(categoria: Categoria): void{
+    this.categoria = categoria;
+  }
+
+  changeMarca(marca: Marca): void{
+    this.marca = marca;
+  }
+
   saveProduct():void{
     this.progressBarBottom.mode = 'query';
     this.progressBarBottom.color = 'accent';
@@ -93,6 +101,7 @@ export class FormProductoComponent implements OnInit {
         this.messageService.messageEvent.next(new Message('success', 'Mensaje informativo', 'Los cambios se guardarón exitosamente!'));
         this.progressBarBottom.mode = 'determinate';
         this.progressBar.mode = 'determinate';
+        this.router.navigate(['productos']).then();
       },
       (error: any) => {
         this.messageService.messageEvent.next(new Message('error', 'Mensaje informativo', error.error.message)); 

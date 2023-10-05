@@ -12,5 +12,6 @@ export class Producto extends GenericModel{
     categoria: Categoria;
     marca: Marca;
     precio: number;
-
+    version: number;
+    
 }

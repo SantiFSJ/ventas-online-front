@@ -1,5 +1,8 @@
 <div class="container">
   <div class="table-header-buttons">
+    <button mat-icon-button color="accent" (click)="reload()" aria-label="Example icon button with a menu icon">
+      <mat-icon>settings_backup_restore</mat-icon>
+    </button>
     <button [disabled]="enableShoppingKartButton()" class="header-button" matBadge="{{getProductsSize()}}" [matBadgeHidden]="!showProductsBadge()" matBadgePosition="before" matBadgeColor="accent" (click)="openShoppingCartDialog()" mat-flat-button color="primary"><mat-icon>shopping_cart</mat-icon>Ver carrito</button>
     
   </div>
@@ -46,8 +49,8 @@
       <th mat-header-cell *matHeaderCellDef> Acciones </th>
       <td mat-cell *matCellDef="let producto"> 
         <button (click)="redirectToForm(producto)"   mat-raised-button color="accent"><mat-icon>edit</mat-icon></button>
-        <button (click)="addToShoppingKart(producto)" matBadge="{{getProductCount(producto)}}" style="margin-left:10px" [matBadgeHidden]="!showDeleteButton(producto)" matBadgePosition="before" matBadgeColor="accent" mat-raised-button color="primary"><mat-icon>add_shopping_cart</mat-icon></button>
-        <button [disabled]="!showDeleteButton(producto)" class="delete-button"style="margin-left:10px"(click)="removeFromShoppingKart(producto)" mat-raised-button color="warn"><mat-icon>remove_shopping_cart</mat-icon></button> 
+        <button (click)="addToShoppingKart(producto)" matBadge="{{getProductCount(producto)}}" style="margin-left:12px" [matBadgeHidden]="!showDeleteButton(producto)" matBadgePosition="before" matBadgeColor="accent" mat-raised-button color="primary"><mat-icon>add_shopping_cart</mat-icon></button>
+        <button [disabled]="!showDeleteButton(producto)" class="delete-button"style="margin-left:12px"(click)="removeFromShoppingKart(producto)" mat-raised-button color="warn"><mat-icon>remove_shopping_cart</mat-icon></button> 
       </td>
     </ng-container>
 
