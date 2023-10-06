@@ -24,7 +24,7 @@
                     <div class="left-box">
                         <mat-form-field color="accent" appearance="outline">
                             <mat-label>Marca</mat-label>
-                            <mat-select formControlName="idMarca">
+                            <mat-select disableOptionCentering formControlName="idMarca">
                                 <mat-option (click)="changeMarca(marca)" *ngFor="let marca of marcas" [value]="marca.id">
                                 {{marca.nombre}}
                                 </mat-option>
@@ -34,7 +34,7 @@
                     <div class="right-box">
                         <mat-form-field color="accent" appearance="outline">
                             <mat-label>Categoria</mat-label>
-                            <mat-select formControlName="idCategoria">
+                            <mat-select disableOptionCentering formControlName="idCategoria">
                                 <mat-option (click)="changeCategoria(categoria)" *ngFor="let categoria of categorias" [value]="categoria.id">
                                 {{categoria.nombre}}
                                 </mat-option>
