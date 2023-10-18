@@ -1,0 +1,58 @@
+<div class="container">
+    <mat-progress-bar #progressBar
+        class="example-margin"
+        color=accent
+        mode=query
+        [value]="100"
+        >
+      </mat-progress-bar>
+    <table mat-table [dataSource]="ventas" class="mat-elevation-z8">
+  
+      <!-- Checkbox Column -->
+      <ng-container matColumnDef="select">
+        <th mat-header-cell *matHeaderCellDef>
+          
+        </th>
+        <td mat-cell *matCellDef="let row">
+          
+        </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="monto">
+        <th mat-header-cell *matHeaderCellDef> Monto </th>
+        <td mat-cell *matCellDef="let venta"> ${{venta.monto}} </td>
+      </ng-container>
+
+  
+      <ng-container matColumnDef="fecha">
+        <th mat-header-cell *matHeaderCellDef> Fecha </th>
+        <td mat-cell *matCellDef="let venta"> {{venta.fecha}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="cantidad-articulos">
+        <th mat-header-cell *matHeaderCellDef> Cantidad de articulos </th>
+        <td mat-cell *matCellDef="let venta"> 5 </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Acciones </th>
+        <td mat-cell *matCellDef="let venta"> 
+          <button  mat-raised-button color="accent"><mat-icon>edit</mat-icon></button>
+         
+        </td>
+      </ng-container>
+  
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <div *ngIf="!showNoSalesMessage">
+        <tr  mat-row *matRowDef="let row; columns: displayedColumns;"
+            >
+        </tr>
+      </div>
+      
+    </table>
+    <div class="empty-table-message" *ngIf="showNoSalesMessage">
+      <div class="empty-table-message-text" *ngIf="showNoSalesMessage">Ups! Todavía no realizaste ninguna compra :(</div>
+    </div>
+  
+  </div>

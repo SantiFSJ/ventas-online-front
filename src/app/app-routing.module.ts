@@ -11,6 +11,10 @@ const routes: Routes = [{
       pathMatch: 'full', 
     },
     {
+      path: 'compras',
+      loadChildren: () => import('./components/compras/compras.module').then((m) => m.ComprasModule),
+    },
+    {
       path: 'productos',
       loadChildren: () => import('./components/productos/productos.module').then((m) => m.ProductosModule),
     },]}

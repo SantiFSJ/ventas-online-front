@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { Message } from 'src/app/models/message';
@@ -11,6 +11,9 @@ import { GenericMessageService } from 'src/app/services/generic-message.service'
   providers: [MessageService]
 })
 export class HeaderComponent implements OnInit {
+
+  @Output() changeSidenavState = new EventEmitter<boolean>();
+
 
   constructor(
     private router: Router,
@@ -26,6 +29,10 @@ export class HeaderComponent implements OnInit {
 
   redirectToHome():void{
     this.router.navigate(['productos']).then();
+  }
+
+  changeSidenav(): void{
+    this.changeSidenavState.emit();
   }
 
   private showMessaggeToast(message: Message): void{

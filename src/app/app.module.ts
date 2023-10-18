@@ -15,9 +15,10 @@ import { MatIconModule } from '@angular/material/icon';
   declarations: [
     HeaderComponent,
     AppComponent,
-    VentasOnlineComponent
+    VentasOnlineComponent,
   ],
   imports: [
+    MatSidenavModule,
     MatIconModule,
     BrowserAnimationsModule,
     ToastModule,

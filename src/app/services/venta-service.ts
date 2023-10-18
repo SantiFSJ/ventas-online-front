@@ -20,4 +20,8 @@ import { ventaUrl } from '../config/api';
       return this.http.post<number>(ventaUrl+'/calcular-monto', venta);
     }
 
+    listarVentasRecientesDeCliente(id: number): Observable<Venta[]>{
+      return this.http.get<Venta[]>(ventaUrl+'/listar/'+id);
+    }
+
   }
