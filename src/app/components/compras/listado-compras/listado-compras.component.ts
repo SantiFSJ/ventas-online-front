@@ -28,6 +28,7 @@ export class ListadoComprasComponent implements OnInit {
     this.ventaService.listarVentasRecientesDeCliente(1).subscribe( 
       (res: Venta[]) => {
         this.ventas = res;
+        console.log(res);
         this.showNoSalesMessage = this.ventas.length == 0;
         this.progressBar.mode = "determinate";
       },
@@ -37,6 +38,11 @@ export class ListadoComprasComponent implements OnInit {
       }
     );
 
+  }
+
+  parseDateToString(date: any){
+    const dateTemp = new Date(date);
+    return dateTemp.toLocaleString('es-ES');
   }
 
 }

@@ -20,18 +20,18 @@
   
       <ng-container matColumnDef="monto">
         <th mat-header-cell *matHeaderCellDef> Monto </th>
-        <td mat-cell *matCellDef="let venta"> ${{venta.monto}} </td>
+        <td mat-cell *matCellDef="let venta"> ${{venta.montoTotal}} </td>
       </ng-container>
 
   
       <ng-container matColumnDef="fecha">
         <th mat-header-cell *matHeaderCellDef> Fecha </th>
-        <td mat-cell *matCellDef="let venta"> {{venta.fecha}} </td>
+        <td mat-cell *matCellDef="let venta"> {{parseDateToString(venta.fechaYHora)}} </td>
       </ng-container>
   
       <ng-container matColumnDef="cantidad-articulos">
         <th mat-header-cell *matHeaderCellDef> Cantidad de articulos </th>
-        <td mat-cell *matCellDef="let venta"> 5 </td>
+        <td mat-cell *matCellDef="let venta"> {{venta.productoVendidos.length}} </td>
       </ng-container>
 
       <ng-container matColumnDef="actions">
